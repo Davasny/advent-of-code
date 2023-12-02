@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.205.0/assert/mod.ts";
-import { puzzle1PartOne, puzzle1PartTwo } from "./puzzle1.ts";
+import { puzzle1PartOne, puzzle1PartTwoWithRegex } from "./puzzle1.ts";
 
 Deno.test("puzzle1", async (t) => {
   await t.step("Test example", async () => {
@@ -34,49 +34,51 @@ Deno.test("puzzle1", async (t) => {
 
 Deno.test("puzzle2", async (t) => {
   await t.step("Test example", async () => {
-    assertEquals(await puzzle1PartTwo("one"), "11");
-    assertEquals(await puzzle1PartTwo("twone"), "21");
-    assertEquals(await puzzle1PartTwo("two"), "22");
-    assertEquals(await puzzle1PartTwo("three"), "33");
-    assertEquals(await puzzle1PartTwo("four"), "44");
-    assertEquals(await puzzle1PartTwo("five"), "55");
-    assertEquals(await puzzle1PartTwo("six"), "66");
-    assertEquals(await puzzle1PartTwo("seven"), "77");
-    assertEquals(await puzzle1PartTwo("eight"), "88");
-    assertEquals(await puzzle1PartTwo("nine"), "99");
+    assertEquals(await puzzle1PartTwoWithRegex("one"), "11");
+    assertEquals(await puzzle1PartTwoWithRegex("twone"), "21");
+    assertEquals(await puzzle1PartTwoWithRegex("two"), "22");
+    assertEquals(await puzzle1PartTwoWithRegex("three"), "33");
+    assertEquals(await puzzle1PartTwoWithRegex("four"), "44");
+    assertEquals(await puzzle1PartTwoWithRegex("five"), "55");
+    assertEquals(await puzzle1PartTwoWithRegex("six"), "66");
+    assertEquals(await puzzle1PartTwoWithRegex("seven"), "77");
+    assertEquals(await puzzle1PartTwoWithRegex("eight"), "88");
+    assertEquals(await puzzle1PartTwoWithRegex("nine"), "99");
 
-    assertEquals(await puzzle1PartTwo("1"), "11");
-    assertEquals(await puzzle1PartTwo("2"), "22");
-    assertEquals(await puzzle1PartTwo("3"), "33");
-    assertEquals(await puzzle1PartTwo("4"), "44");
-    assertEquals(await puzzle1PartTwo("5"), "55");
-    assertEquals(await puzzle1PartTwo("6"), "66");
-    assertEquals(await puzzle1PartTwo("7"), "77");
-    assertEquals(await puzzle1PartTwo("8"), "88");
-    assertEquals(await puzzle1PartTwo("9"), "99");
+    assertEquals(await puzzle1PartTwoWithRegex("1"), "11");
+    assertEquals(await puzzle1PartTwoWithRegex("2"), "22");
+    assertEquals(await puzzle1PartTwoWithRegex("3"), "33");
+    assertEquals(await puzzle1PartTwoWithRegex("4"), "44");
+    assertEquals(await puzzle1PartTwoWithRegex("5"), "55");
+    assertEquals(await puzzle1PartTwoWithRegex("6"), "66");
+    assertEquals(await puzzle1PartTwoWithRegex("7"), "77");
+    assertEquals(await puzzle1PartTwoWithRegex("8"), "88");
+    assertEquals(await puzzle1PartTwoWithRegex("9"), "99");
 
-    assertEquals(await puzzle1PartTwo("two1nine"), "29");
-    assertEquals(await puzzle1PartTwo("eightwothree"), "83");
-    assertEquals(await puzzle1PartTwo("abcone2threexyz"), "13");
-    assertEquals(await puzzle1PartTwo("xtwone3four"), "24");
-    assertEquals(await puzzle1PartTwo("4nineeightseven2"), "42");
-    assertEquals(await puzzle1PartTwo("zoneight234"), "14");
-    assertEquals(await puzzle1PartTwo("7pqrstsixteen"), "76");
+    assertEquals(await puzzle1PartTwoWithRegex("two1nine"), "29");
+    assertEquals(await puzzle1PartTwoWithRegex("eightwothree"), "83");
+    assertEquals(await puzzle1PartTwoWithRegex("abcone2threexyz"), "13");
+    assertEquals(await puzzle1PartTwoWithRegex("xtwone3four"), "24");
+    assertEquals(await puzzle1PartTwoWithRegex("4nineeightseven2"), "42");
+    assertEquals(await puzzle1PartTwoWithRegex("zoneight234"), "14");
+    assertEquals(await puzzle1PartTwoWithRegex("7pqrstsixteen"), "76");
 
     assertEquals(
-      await puzzle1PartTwo("jjhxddmg5mqxqbgfivextlcpnvtwothreetwonerzk"),
+      await puzzle1PartTwoWithRegex(
+        "jjhxddmg5mqxqbgfivextlcpnvtwothreetwonerzk",
+      ),
       "51",
     );
-    assertEquals(await puzzle1PartTwo("2nineninesixsixfive5"), "25");
-    assertEquals(await puzzle1PartTwo("four9four"), "44");
-    assertEquals(await puzzle1PartTwo("oneoneoneoneone"), "11");
+    assertEquals(await puzzle1PartTwoWithRegex("2nineninesixsixfive5"), "25");
+    assertEquals(await puzzle1PartTwoWithRegex("four9four"), "44");
+    assertEquals(await puzzle1PartTwoWithRegex("oneoneoneoneone"), "11");
   });
 
   await t.step("Test file", async () => {
     const data = await Deno.readTextFile("./puzzle-1/input.txt");
     const lines = data.split("\n");
 
-    const numbers2: number[] = [];
+    const numbers: number[] = [];
     for (const line of lines) {
       const trimmedLine = line.trim();
 
@@ -84,15 +86,12 @@ Deno.test("puzzle2", async (t) => {
         continue;
       }
 
-      const result = puzzle1PartTwo(line);
-      numbers2.push(parseInt(result));
-      console.log(line, result);
+      const result = puzzle1PartTwoWithRegex(line);
+      numbers.push(parseInt(result));
     }
 
-    console.log(numbers2.length);
-
-    // sum all numbers2
-    const sum2 = numbers2.reduce((a, b) => a + b, 0);
+    // sum all numbers
+    const sum2 = numbers.reduce((a, b) => a + b, 0);
     console.log(`Sum 2: ${sum2}`);
   });
 });
