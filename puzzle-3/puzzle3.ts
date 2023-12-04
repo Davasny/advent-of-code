@@ -148,7 +148,8 @@ export const puzzle3PartTwo = (lines: string[]): number => {
             number.column + number.value.length === charIdx ||
             number.column === charIdx + 1 ||
             number.column === charIdx ||
-            (number.column < charIdx && charIdx < number.column + number.value.length)
+            (number.column < charIdx &&
+              charIdx < number.column + number.value.length)
           )
           .map((number) => parseInt(number.value));
         foundNumbers.push(...numbersAbove);
@@ -159,7 +160,8 @@ export const puzzle3PartTwo = (lines: string[]): number => {
             number.column + number.value.length === charIdx ||
             number.column === charIdx + 1 ||
             number.column === charIdx ||
-            (number.column < charIdx && charIdx < number.column + number.value.length)
+            (number.column < charIdx &&
+              charIdx < number.column + number.value.length)
           )
           .map((number) => parseInt(number.value));
         foundNumbers.push(...numbersBelow);
